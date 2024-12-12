@@ -6,39 +6,45 @@ public class Configuration {
     private int customerRetrievalRate;
     private int maxTicketCapacity;
 
-    public Configuration() {
-        configureSystem();
+    // Getters and Setters
+    public int getTotalTickets() {
+        return totalTickets;
     }
 
-    private void configureSystem() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("System Configuration:");
-        this.totalTickets = promptForPositiveInt(scanner, "Total Tickets");
-        this.ticketReleaseRate = promptForPositiveInt(scanner, "Ticket Release Rate");
-        this.customerRetrievalRate = promptForPositiveInt(scanner, "Customer Retrieval Rate");
-        this.maxTicketCapacity = promptForPositiveInt(scanner, "Max Ticket Capacity");
+    public void setTotalTickets(int totalTickets) {
+        this.totalTickets = validateInput(totalTickets, "Total Tickets");
     }
 
-    private int promptForPositiveInt(Scanner scanner, String prompt) {
-        int value;
-        while (true) {
-            System.out.print(prompt + ": ");
-            try {
-                value = Integer.parseInt(scanner.nextLine());
-                if (value > 0) {
-                    return value;
-                } else {
-                    System.out.println("Please enter a positive integer.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Enter a positive integer.");
-            }
+    public int getTicketReleaseRate() {
+        return ticketReleaseRate;
+    }
+
+    public void setTicketReleaseRate(int ticketReleaseRate) {
+        this.ticketReleaseRate = validateInput(ticketReleaseRate, "Ticket Release Rate");
+    }
+
+    public int getCustomerRetrievalRate() {
+        return customerRetrievalRate;
+    }
+
+    public void setCustomerRetrievalRate(int customerRetrievalRate) {
+        this.customerRetrievalRate = validateInput(customerRetrievalRate, "Customer Retrieval Rate");
+    }
+
+    public int getMaxTicketCapacity() {
+        return maxTicketCapacity;
+    }
+
+    public void setMaxTicketCapacity(int maxTicketCapacity) {
+        this.maxTicketCapacity = validateInput(maxTicketCapacity, "Max Ticket Capacity");
+    }
+
+    // Validate user input
+    private int validateInput(int value, String parameterName) {
+        while (value <= 0) {
+            System.out.println(parameterName + " must be greater than 0. Please try again:");
+            value = new Scanner(System.in).nextInt();
         }
+        return value;
     }
-
-    public int getTotalTickets() { return totalTickets; }
-    public int getTicketReleaseRate() { return ticketReleaseRate; }
-    public int getCustomerRetrievalRate() { return customerRetrievalRate; }
-    public int getMaxTicketCapacity() { return maxTicketCapacity; }
 }
